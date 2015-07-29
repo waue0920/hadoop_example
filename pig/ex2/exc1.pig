@@ -1,0 +1,10 @@
+A = LOAD  'myfile.txt' USING PigStorage('\t') AS (f1,f2,f3);
+B = LOAD 'B.txt' ; 		dump A; dump B;
+Y = FILTER A BY f1 == '8';    	dump Y;
+Y = FILTER A BY (f1 == '8') OR (NOT (f2+f3 > f1));   dump Y;
+X = GROUP A BY f1;	dump X;
+X = FOREACH A GENERATE f1, f2;	dump X;
+X = FOREACH A GENERATE f1+f2 as sumf1f2; dump X;
+Y = FILTER X by sumf1f2 > 5.0;	dump Y;
+C = COGROUP A BY $0, B BY $0;	dump C;
+C = COGROUP A BY $0 INNER, B BY $0 INNER;	dump C;
