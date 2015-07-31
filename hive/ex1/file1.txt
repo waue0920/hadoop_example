@@ -1,0 +1,10 @@
+john liu,taipei,A001
+shusan lee,taipei,A002
+lena lin,taipei,A003
+gina kuo,taipei,A004
+tom her,taipei,A005
+andrew pan,taipei,A006
+johny lin,taipei,A010
+momo lee ,taichung,B001
+ann wang,taichung,B002
+molica chen,taichung,B003
