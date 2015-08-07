@@ -16,7 +16,12 @@ ln -sf /home/hadoop/tarball/sqoop-1.4.5-cdh5.3.2 sqoop
 mv /home/hadoop/bashrc /home/hadoop/.bashrc
 source ~/.bashrc
 
-ssh-keygen -t rsa 
+ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+
+sed -i "s|java-7-openjdk-i386|default-java|g" /home/hadoop/hadoop/etc/hadoop/hadoop-env.sh
+
+sed -i "s|java-7-openjdk-i386|default-java|g" /home/hadoop/hadoop/libexec/hadoop-config.sh
+
 cp ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
 
 sudo apt-get install -y openjdk-7-jdk
