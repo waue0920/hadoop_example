@@ -58,7 +58,7 @@ mysql -u root -phadoop < ./exc1.sql
 
 hadoop fs -rmr hdfs://master:9000/user/hadoop/authors
 
-sqoop import --connect jdbc:mysql://localhost/books --username root -- table authors --password hadoop --hive-import -m 1
+sqoop import --connect jdbc:mysql://localhost/books --username root --table authors --password hadoop --hive-import -m 1
 
 ================== 
 * sqoop ex1-ex : 
