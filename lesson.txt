@@ -1,0 +1,177 @@
+================== 
+* Note : environment
+================== 
+
+jps
+-----
+xxxx NodeManager
+xxxx NameNode
+xxxx JobHistoryServer
+xxxx ResourceManager
+xxxx DataNode
+-----
+
+start-all.sh
+
+mr-jobhistory-daemon.sh start historyserver
+
+================== 
+* git sync : 
+================== 
+cd ~/hadoop_example/
+
+git pull
+
+================== 
+* hive ex1 : 
+================== 
+cd ~/hadoop_example/hive/ex1
+
+hadoop fs -put *.txt ./
+
+hive -f exc1.hive
+
+
+================== 
+* hive ex2 : 
+================== 
+cd ~/hadoop_example/hive/ex2
+
+./get_taiwan_landprice.sh
+
+hadoop fs -rmr ./hive_2_input
+
+hadoop fs -put input ./hive_2_input
+
+hive 
+----------------
+
+----------------
+
+
+================== 
+* Sqoop ex1 : 
+================== 
+cd ~/hadoop_example/sqoop/ex1
+
+mysql -u root -phadoop < ./exc1.sql
+
+hadoop fs -rmr hdfs://master:9000/user/hadoop/authors
+
+sqoop import --connect jdbc:mysql://localhost/books --username root -- table authors --password hadoop --hive-import -m 1
+
+================== 
+* sqoop ex1-ex : 
+================== 
+hadoop fs -rmr /user/hadoop/authors
+
+sqoop job --create myjob -- import --connect jdbc:mysql://localhost/books --username root -table authors -P -hive-import -m 1
+
+sqoop job --list
+
+sqoop job --show myjob
+
+sqoop job --exec myjob
+
+================== 
+* sqoop ex2 : 
+================== 
+
+cd ~/hadoop_example/sqoop/ex2
+
+mysql -u root -phadoop < ./create.sql
+
+./update_hdfs_data.sh
+
+sqoop export --connect jdbc:mysql://localhost/db --username root --password hadoop --table employee --export-dir /user/hadoop/sqoop_input/emp_data
+
+
+
+================== 
+* pig ex1 : 
+================== 
+
+cd ~/hadoop_example/pig/ex1
+
+pig -x local -f exc1.pig
+
+cat /tmp/pig_output/part-r-00000
+
+
+================== 
+* pig ex2 : 
+================== 
+
+cd ~/hadoop_example/pig/ex2
+
+hadoop fs -put myfile.txt B.txt ./
+
+pig -x mapred
+
+----------------
+A = LOAD 'myfile.txt' USING PigStorage('\t') AS (f1,f2,f3);
+
+dump A; 
+
+B = LOAD 'B.txt'; dump B;
+
+Y = FILTER A BY f1 == '8'; dump Y;
+
+Y = FILTER A BY (f1 == '8') OR (NOT (f2+f3 > f1)); dump Y;
+
+X = GROUP A BY f1;dump X;
+
+X = FOREACH A GENERATE f1, f2; dump X;
+
+X = FOREACH A GENERATE f1+f2 as sumf1f2; dump X;
+
+Y = FILTER X by sumf1f2 > 5.0;dump Y;
+
+C = COGROUP A BY $0, B BY $0; dump C;
+
+C = COGROUP A BY $0 INNER, B BY $0 INNER; dump C;
+----------------
+
+
+================== 
+* pig ex3 : 
+================== 
+
+cd ~/hadoop_example/pig/ex3
+
+pig -x local
+
+----------------
+REGISTER ./tutorial.jar;
+
+raw = LOAD 'excite-small.log' USING PigStorage('\t') AS (user, time, query);
+
+clean1 = FILTER raw BY org.apache.pig.tutorial.NonURLDetector(query);
+
+clean2 = FOREACH clean1 GENERATE user, time, org.apache.pig.tutorial.ToLower(query) as query; 
+
+houred = FOREACH clean2 GENERATE user, org.apache.pig.tutorial.ExtractHour(time) as hour, query;
+
+ngramed1 = FOREACH houred GENERATE user, hour,flatten(org.apache.pig.tutorial.NGramGenerator(query)) as ngram;
+
+ngramed2 = DISTINCT ngramed1;
+
+hour_frequency1 = GROUP ngramed2 BY (ngram, hour);
+
+hour_frequency2 = FOREACH hour_frequency1 GENERATE flatten($0), COUNT($1) as count;
+
+uniq_frequency1 = GROUP hour_frequency2 BY group::ngram;
+
+uniq_frequency2 = FOREACH uniq_frequency1 GENERATE flatten($0),flatten(org.apache.pig.tutorial.ScoreGenerator($1));
+
+uniq_frequency3 = FOREACH uniq_frequency2 GENERATE $1 as hour, $0 as ngram, $2 as score, $3 as count, $4 as mean;
+
+filtered_uniq_frequency = FILTER uniq_frequency3 BY score > 2.0;
+
+ordered_uniq_frequency = ORDER filtered_uniq_frequency BY hour, score;
+
+STORE ordered_uniq_frequency INTO 'result' USING PigStorage();
+----------------
+
+
+
