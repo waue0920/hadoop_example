@@ -35,7 +35,7 @@ public class OperatingFiles {
 		hdfs.copyToLocalFile(src, dst);
 
 		// list all the files in the current direction
-		FileStatus files[] = hdfs.listStatus(dst);
+		FileStatus files[] = hdfs.listStatus(src);
 		System.out.println("download from \t" + conf.get("fs.default.name") + hdfsDst +"to local" );
 		for (FileStatus file : files) {
 			System.out.println(file.getPath());
