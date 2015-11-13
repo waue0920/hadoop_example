@@ -12,7 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jdk.version>1.6</jdk.version>
+        <jdk.version>1.8</jdk.version>
         <hbase.version>0.98.6-cdh5.3.2</hbase.version>
         <hadoop.version>2.5.0-cdh5.3.2</hadoop.version>
 	</properties>
@@ -28,7 +28,7 @@
 		<dependency>
 			<groupId>jdk.tools</groupId>
 			<artifactId>jdk.tools</artifactId>
-			<version>1.6</version>
+			<version>1.8</version>
 			<scope>system</scope>
 			<systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
 		</dependency>
