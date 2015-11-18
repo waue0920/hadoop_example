@@ -6,7 +6,6 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 
 public  class R2_Mapper extends Mapper<Object, Text, Text, IntWritable>{

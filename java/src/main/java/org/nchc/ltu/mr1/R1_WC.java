@@ -16,7 +16,8 @@ import org.apache.hadoop.util.ToolRunner;
 public class R1_WC  extends Configured implements Tool {
 
     public static void main( String[] args ) throws Exception{
-    	String[] argv = {"/tmp/mr_test/input","/tmp/mr_test/result1"};
+//    	String[] argv = {"/tmp/mr_test/input","/tmp/mr_test/result1"};
+    	String[] argv = {"D:\\waue\\dataSet\\testinput","D:\\waue\\dataSet\\testoutput"};
     	args = argv;
 
         System.exit(go(args));
@@ -35,6 +36,7 @@ public class R1_WC  extends Configured implements Tool {
 		return res;
 	}
 	
+	@Override
 	public int run (String[]args) throws Exception{
 		// TODO Auto-generated method stub
     	Configuration conf = new Configuration();

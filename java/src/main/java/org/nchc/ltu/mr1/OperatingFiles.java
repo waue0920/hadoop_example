@@ -100,5 +100,6 @@ public class OperatingFiles {
 		ofs.createFile(dir + "/word.txt", fileContent);
 		System.out.println("\n=======delete directory=======");
 		ofs.deleteFile(dir);
+		
 	}
 }

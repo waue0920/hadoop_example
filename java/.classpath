@@ -22,5 +22,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/waue/hadoop_lib_workspace/bin"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
