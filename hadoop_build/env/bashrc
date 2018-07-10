@@ -120,5 +120,9 @@ export PATH=/home/hadooper/anaconda3/bin:$PATH
 
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
-export HADOOP_HOME=/home/hadooper/hadoop
-export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
+export HADOOP_HOME=/opt/hadoop
+export SPARK_HOME=/opt/spark
+export HIVE_HOME=/opt/hive
+export PIG_HOME=/opt/pig
+export FLUME_HOME=/opt/flume
+export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$HIVE_HOME/bin:$PIG_HOME/bin:$FLUME_HOME/bin:$PATH

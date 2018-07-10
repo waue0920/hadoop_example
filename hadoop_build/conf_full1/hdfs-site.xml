@@ -5,11 +5,11 @@
     </property>
     <property>
              <name>dfs.namenode.name.dir</name> 
-             <value>file:/tmp/dfs/name</value>
+	     <value>/opt/hadoop/data/dfs/name</value>
     </property>
     <property>
              <name>dfs.datanode.data.dir</name>
-             <value>/tmp/dfs/data</value>
+	     <value>/opt/hadoop/data/dfs/data</value>
     </property>
 
 </configuration>
