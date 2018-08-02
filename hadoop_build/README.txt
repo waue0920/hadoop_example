@@ -4,35 +4,33 @@
 #################
 ## author : wychen@nchc.org.tw
 
-This script will build an agile hadoop environment, 
-that user = hadoop, and work on /home/hadoop.
+### install Java8 ###
+$ sudo add-apt-repository ppa:webupd8team/java
+$ sudo apt update
+$ sudo apt-get install oracle-java8-installer
+$ sudo apt-get install oracle-java8-set-default
 
- * real workspace
-================
-all_project_dir=/home/hadoop/tarball
-hdfs_working_dir=/home/hadoop/hadoop_dir
-hive_metastore_db=/home/hadoop/metastore_db
-================
+### ssh login without password ###
+$ sudo apt-get install ssh
+$ /etc/init.d/ssh start
+$ ssh-keygen -t rsa
+$ ssh-copy-id localhost
+$ ssh 
+$ exit
 
- * other path is 
-================
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+### download the hadoop ###
+$ wget http://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-2.8.4/hadoop-2.8.4.tar.gz
+$ tar -xzvf hadoop-2.8.4.tar.gz 
+$ sudo mv hadoop-2.8.4 /opt/hadoop
 
-export HADOOP_HOME=/home/hadoop/hadoop
-export HADOOP_MAPRED_HOME=$HADOOP_HOME
-export HADOOP_COMMON_HOME=$HADOOP_HOME
-export HADOOP_HDFS_HOME=$HADOOP_HOME
-export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+### edit file ###
+$ gedit ~/.bashrc
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
+export HADOOP_HOME=/opt/hadoop
+export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
 
-export YARN_HOME=$HADOOP_HOME
-export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop
-
-export SQOOP_HOME=/home/hadoop/sqoop
-export HIVE_HOME=/home/hadoop/hive
-export PIG_HOME=/home/hadoop/pig
-export HBASE_HOME=/home/hadoop/hbase
-export HCAT_HOME=${HIVE_HOME}/hcatalog
-export MAHOUT_HOME=/home/hadoop/mahout
-export FLUME_HOME=/home/hadoop/flume
-export MAVEN_HOME=/home/hadoop/maven
-================
+$ scp -r hadoop <remote>:~/
+$ hadoop namenode -format
+$ start-dfs.sh
+$ start-yarn.sh
