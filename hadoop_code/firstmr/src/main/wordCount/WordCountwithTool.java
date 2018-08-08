@@ -6,11 +6,10 @@ package wordCount;
 
 
 import hdfs.FileDelete;
-import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -22,16 +21,16 @@ import java.util.Map;
 
 public class WordCountwithTool extends Configured implements Tool {
     @Override
-    public int run(String[] args) throws Exception{
+    public int run(String[] args) throws Exception {
 
-        if(args.length !=2){
+        if (args.length != 2) {
             System.err.println("Invalid Command");
             System.err.println("Usage: <input path> <output path>");
             return -1;
         }
 
-
         Configuration conf = getConf();
+
         Job job = Job.getInstance(conf);
         // option 1:
         //showConfig(conf);
@@ -50,7 +49,8 @@ public class WordCountwithTool extends Configured implements Tool {
         FileOutputFormat.setOutputPath(job, outputFilePath);
         // option 2: delete
         FileDelete fsd = new FileDelete();
-        fsd.deleteFile(outputFilePath,conf);
+        fsd.deleteFile(outputFilePath, conf);
+
 
         return job.waitForCompletion(true) ? 0 : 1;
     }
@@ -64,7 +64,7 @@ public class WordCountwithTool extends Configured implements Tool {
 
     public static void main(String[] args) throws Exception {
         // assign argument
-        String[] argc = {"MRdata/wordcount/wordcount","output/wc_tool"};
+        String[] argc = {"MRdata/wordcount", "output/wc_tool"};
         args = argc;
 
         // fix Error :

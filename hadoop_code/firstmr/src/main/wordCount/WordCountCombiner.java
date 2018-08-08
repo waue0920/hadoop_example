@@ -19,7 +19,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class WordCountCombiner {
 
     public static void main(String[] args) throws Exception {
-        String[] argc = {"MRdata/wordcount/wordcount","output/wc_cb"};
+        String[] argc = {"MRdata/wordcount","output/wc_cb"};
         args = argc;
         if(args.length !=2){
             System.err.println("Invalid Command");

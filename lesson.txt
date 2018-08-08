@@ -2,7 +2,7 @@
 * Note : environment
 ================== 
 
-jps
+$ jps
 -----
 xxxx NodeManager
 xxxx NameNode
@@ -11,39 +11,39 @@ xxxx ResourceManager
 xxxx DataNode
 -----
 
-start-all.sh
+$ start-all.sh
 
-mr-jobhistory-daemon.sh start historyserver
+$ mr-jobhistory-daemon.sh start historyserver
 
 ================== 
 * git sync : 
 ================== 
-cd ~/hadoop_example/
+$ cd ~/hadoop_example/
 
-git pull
+$ git pull
 
 ================== 
 * hive ex1 : 
 ================== 
-cd ~/hadoop_example/hive/ex1
+$ cd ~/hadoop_example/hive/ex1
 
-hadoop fs -put *.txt ./
+$ hadoop fs -put *.txt ./
 
-hive -f exc1.hive
+$ hive -f exc1.hive
 
 
 ================== 
 * hive ex2 : 
 ================== 
-cd ~/hadoop_example/hive/ex2
+$ cd ~/hadoop_example/hive/ex2
 
-./get_taiwan_landprice.sh
+$ ./get_taiwan_landprice.sh
 
-hadoop fs -rmr ./hive_2_input
+$ hadoop fs -rmr ./hive_2_input
 
-hadoop fs -put input ./hive_2_input
+$ hadoop fs -put input ./hive_2_input
 
-hive 
+$ hive 
 ----------------
 
 ----------------
@@ -52,61 +52,61 @@ hive
 ================== 
 * Sqoop ex1 : 
 ================== 
-cd ~/hadoop_example/sqoop/ex1
+$ cd ~/hadoop_example/sqoop/ex1
 
-mysql -u root -phadoop < ./exc1.sql
+$ mysql -u root -phadoop < ./exc1.sql
 
-hadoop fs -rmr hdfs://master:9000/user/hadoop/authors
+$ hadoop fs -rmr hdfs://hdhost:9000/user/hadooper/authors
 
-sqoop import --connect jdbc:mysql://localhost/books --username root --table authors --password hadoop --hive-import -m 1
+$ sqoop import --connect jdbc:mysql://localhost/books --username root --table authors --password hadoop --hive-import -m 1
 
 ================== 
 * sqoop ex1-ex : 
 ================== 
-hadoop fs -rmr /user/hadoop/authors
-
-sqoop job --create myjob -- import --connect jdbc:mysql://localhost/books --username root -table authors -P -hive-import -m 1
-
-sqoop job --list
-
-sqoop job --show myjob
-
-sqoop job --exec myjob
+$ hadoop fs -rmr /user/hadooper/authors
+ 
+$ sqoop job --create myjob -- import --connect jdbc:mysql://localhost/books --username root -table authors -P -hive-import -m 1
+ 
+$ sqoop job --list
+ 
+$ sqoop job --show myjob
+ 
+$ sqoop job --exec myjob
 
 ================== 
 * sqoop ex2 : 
 ================== 
 
-cd ~/hadoop_example/sqoop/ex2
-
-mysql -u root -phadoop < ./create.sql
-
-./update_hdfs_data.sh
-
-sqoop export --connect jdbc:mysql://localhost/db --username root --password hadoop --table employee --export-dir /user/hadoop/sqoop_input/emp_data
-
+$ cd ~/hadoop_example/sqoop/ex2
+ 
+$ mysql -u root -phadoop < ./create.sql
+ 
+$ ./update_hdfs_data.sh
+ 
+$ sqoop export --connect jdbc:mysql://localhost/db --username root --password hadoop --table employee --export-dir /user/hadoop/sqoop_input/emp_data
+ 
 
 
 ================== 
 * pig ex1 : 
 ================== 
 
-cd ~/hadoop_example/pig/ex1
+$ cd ~/hadoop_example/pig/ex1
 
-pig -x local -f exc1.pig
+$ pig -x local -f exc1.pig
 
-cat /tmp/pig_output/part-r-00000
+$ cat /tmp/pig_output/part-r-00000
 
 
 ================== 
 * pig ex2 : 
 ================== 
 
-cd ~/hadoop_example/pig/ex2
+$ cd ~/hadoop_example/pig/ex2
 
-hadoop fs -put myfile.txt B.txt ./
+$ hadoop fs -put myfile.txt B.txt ./
 
-pig -x mapred
+$ pig -x mapred
 
 ----------------
 A = LOAD 'myfile.txt' USING PigStorage('\t') AS (f1,f2,f3);
@@ -137,9 +137,9 @@ C = COGROUP A BY $0 INNER, B BY $0 INNER; dump C;
 * pig ex3 : 
 ================== 
 
-cd ~/hadoop_example/pig/ex3
+$ cd ~/hadoop_example/pig/ex3
 
-pig -x local
+$ pig -x local
 
 ----------------
 REGISTER ./tutorial.jar;

@@ -1,21 +1,13 @@
 package hdfs;
 
 
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+
+import java.io.*;
 
 public class FileUtil {
 
@@ -146,13 +138,13 @@ public class FileUtil {
     public static void main(String[] args) throws IOException {
 
         if (args.length < 1) {
-            System.out.println("Usage: hdfsclient add/read/delete/mkdir"
+            System.out.println("Usage: fileutil add/read/delete/mkdir"
                     + " [<local_path> <hdfs_path>]");
             System.exit(1);
         }
 
         FileUtil client = new FileUtil();
-        String hdfsPath = "hdfs://" + args[0] + ":" + args[1];
+//        String hdfsPath = "hdfs://" + args[0] + ":" + args[1];
 
         Configuration conf = new Configuration();
         // Providing conf files
@@ -166,11 +158,11 @@ public class FileUtil {
 
         //(or)
         // alternatively provide namenode host and port info
-        conf.set("fs.default.name", hdfsPath);
+//        conf.set("fs.default.name", hdfsPath);
 
         if (args[0].equals("add")) {
             if (args.length < 3) {
-                System.out.println("Usage: hdfsclient add <local_path> "
+                System.out.println("Usage: fileutil add <local_path> "
                         + "<hdfs_path>");
                 System.exit(1);
             }
@@ -179,7 +171,7 @@ public class FileUtil {
 
         } else if (args[0].equals("read")) {
             if (args.length < 2) {
-                System.out.println("Usage: hdfsclient read <hdfs_path>");
+                System.out.println("Usage: fileutil read <hdfs_path>");
                 System.exit(1);
             }
 
@@ -187,7 +179,7 @@ public class FileUtil {
 
         } else if (args[0].equals("delete")) {
             if (args.length < 2) {
-                System.out.println("Usage: hdfsclient delete <hdfs_path>");
+                System.out.println("Usage: fileutil delete <hdfs_path>");
                 System.exit(1);
             }
 
@@ -195,14 +187,14 @@ public class FileUtil {
 
         } else if (args[0].equals("mkdir")) {
             if (args.length < 2) {
-                System.out.println("Usage: hdfsclient mkdir <hdfs_path>");
+                System.out.println("Usage: fileutil mkdir <hdfs_path>");
                 System.exit(1);
             }
 
             client.mkdir(args[1], conf);
 
         } else {
-            System.out.println("Usage: hdfsclient add/read/delete/mkdir"
+            System.out.println("Usage: fileutil add/read/delete/mkdir"
                     + " [<local_path> <hdfs_path>]");
             System.exit(1);
         }
