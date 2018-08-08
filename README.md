@@ -1,2 +1,2 @@
 # hadoop_example
-hadoop example for lesson
+https://github.com/waue0920/hadoop_example/wiki
