@@ -18,7 +18,8 @@ import org.apache.hadoop.util.ToolRunner;
 public class select extends Configured implements Tool{
     @Override
     public int run(String[] args) throws Exception{
-
+        String[] argc = {"MRdata/sql/sample.csv","./output/sel"};  // local
+        args=argc;
         if(args.length !=2){
             System.err.println("Invalid Command");
             System.err.println("Usage: <input path> <output path>");

@@ -21,7 +21,10 @@ import org.apache.hadoop.util.ToolRunner;
 public class Join extends Configured implements Tool{
     @Override
     public int run(String[] args) throws Exception{
-
+        String[] argc = {"MRdata/sql/joinNames.csv",
+                "MRdata/sql/joinTrades.csv",
+                "./output/join"};  // local
+        args=argc;
         if(args.length !=3){
             System.err.println("Invalid Command");
             System.err.println("Usage: <input path1> <input path2> <output path>");

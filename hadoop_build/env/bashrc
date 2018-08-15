@@ -116,13 +116,24 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=/home/hadooper/anaconda3/bin:$PATH
-
+# python env
+export ANACONDA_PATH=/opt/anaconda3
+# java env
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 export JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
+# hadoop env
 export HADOOP_HOME=/opt/hadoop
+# spark env
 export SPARK_HOME=/opt/spark
+export PYSPARK_DRIVER_PYTHON=$ANACONDA_PATH/bin/ipython
+export PYSPARK_PYTHON=$ANACONDA_PATH/bin/python
+unset XDG_RUNTIME_DIR
+# hive env
 export HIVE_HOME=/opt/hive
+# pig env
 export PIG_HOME=/opt/pig
+# flume env
 export FLUME_HOME=/opt/flume
-export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$HIVE_HOME/bin:$PIG_HOME/bin:$FLUME_HOME/bin:$PATH
+# aggregate the env path
+export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$HIVE_HOME/bin:$PIG_HOME/bin:$FLUME_HOME/bin:$ANACONDA_PATH/bin:$PATH
+

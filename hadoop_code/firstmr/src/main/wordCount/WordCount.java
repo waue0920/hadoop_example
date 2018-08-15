@@ -15,7 +15,8 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class WordCount {
 
     public static void main(String[] args) throws Exception {
-        String[] argc = {"MRdata/wordcount","output/wc"};
+        String[] argc = {"MRdata/wordcount","output/wc"};  // local
+//        String[] argc = {"hdfs://hdhost:9000/user/hadooper/input","hdfs://hdhost:9000/user/hadooper/output/wc"}; // hdfs
         args = argc;
         if(args.length !=2){
             System.err.println("Invalid Command");

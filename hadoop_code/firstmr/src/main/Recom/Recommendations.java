@@ -15,16 +15,18 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class Recommendations{
-    private static final String OUTPUT_PATH = "/test/intermediate_output";
+    private static final String TMP_DIR = "./output/rec/tmp_meta";
     public static void main(String[] args) throws Exception {
         // --------- first Map1-Reduce1 Job -------------------------
         // For each user, calculates the number of common friends
         // with other users
+        String[] argc = {"MRdata/recommendations","./output/rec/result"};  // local
+        args=argc;
         Configuration conf = new Configuration();
 
         FileSystem fs = FileSystem.get(conf);
-        if(fs.exists(new Path(OUTPUT_PATH))){
-            fs.delete(new Path(OUTPUT_PATH),true);
+        if(fs.exists(new Path(TMP_DIR))){
+            fs.delete(new Path(TMP_DIR),true);
         }
 
         Job job = new Job(conf, "FriendRecom-MR1");
@@ -39,7 +41,7 @@ public class Recommendations{
         job.setReducerClass(Reduce1.class);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
-        FileOutputFormat.setOutputPath(job, new Path(OUTPUT_PATH));
+        FileOutputFormat.setOutputPath(job, new Path(TMP_DIR));
 
         job.waitForCompletion(true);
         // -------- Second Map1 Reduce1 Job -------
@@ -57,7 +59,7 @@ public class Recommendations{
         job2.setMapperClass(Map2.class);
         job2.setReducerClass(Reduce2.class);
 
-        FileInputFormat.addInputPath(job2, new Path(OUTPUT_PATH));
+        FileInputFormat.addInputPath(job2, new Path(TMP_DIR));
         FileOutputFormat.setOutputPath(job2, new Path(args[1]));
 
         job2.waitForCompletion(true);
