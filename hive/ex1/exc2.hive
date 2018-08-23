@@ -11,8 +11,8 @@ ROW FORMAT DELIMITED  FIELDS TERMINATED BY ',' ;
 create table final (dp String, id String , nm String, avg float)
 ROW FORMAT DELIMITED  FIELDS TERMINATED BY ',' ;
 
-load data inpath 'file1.txt' into table A;
-load data inpath 'file2.ok.txt' into table B;
+load data inpath 'input/h1/file1.txt' into table A;
+load data inpath 'input/h1/file2.ok.txt' into table B;
 
 insert overwrite table final select a.id, collect_set(a.dp),  collect_set(a.nm), avg(b.hr) from a,b where b.hr > 8 and b.id = a.id group by a.id;
 
