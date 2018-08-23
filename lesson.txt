@@ -1,6 +1,14 @@
 ================== 
-* Note : environment
+* git sync : 
 ================== 
+$ cd ~/hadoop_example/
+
+$ git pull
+
+
+==================
+* Note : environment
+==================
 
 $ jps
 -----
@@ -11,33 +19,52 @@ xxxx ResourceManager
 xxxx DataNode
 -----
 
+==================
+* start service 
+==================
+
 $ start-all.sh
 
 $ mr-jobhistory-daemon.sh start historyserver
 
 ================== 
-* git sync : 
+* hdfs operation
 ================== 
-$ cd ~/hadoop_example/
 
-$ git pull
+$ hadoop fs -mkdir /user
+$ hadoop fs -mkdir /user/hadooper
+$ hadoop fs -mkdir /user/hadooper/input
+$ hadoop fs -put /opt/hadoop/logs /user/hadooper/input/
+$ hadoop fs -ls /user/hadooper/input/logs/
+$ hadoop fs -get /user/hadooper/input/logs ./logs-from-hdfs
+$ hadoop fs -rm /user/hadooper/input/logs/yarn-hadooper-*
+$ hadoop fs -chmod -R 777 /user/hadooper/input/logs
+
+================== 
+* mr operation
+================== 
+
+$ cd /opt/hadoop
+$ hadoop jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples*.jar pi 10 10
 
 
 ==================
 * build up hive
 ==================
+$ cd /opt 
+$ wget http://ftp.twaren.net/Unix/Web/apache/hive/hive-1.2.2/apache-hive-1.2.2-bin.tar.gz
+$ tar -zxvf apache-hive-1.2.2-bin.tar.gz 
+$ mv apache-hive-1.2.2-bin hive
 
 $ hadoop fs -mkdir -p /user/hive/warehouse
 $ hadoop fs -mkdir -p /user/hadooper
 $ hadoop fs -mkdir -p /tmp
 $ hadoop fs -chmod 1777   /tmp
+$ hadoop fs -chmod g+w /user/hive/warehouse
 $ cd ~/hadoop_example/hive/
 $ cp hive-env.sh /opt/hive/conf/hive-env.sh
 $ cp hive-site.xml /opt/hive/conf/hive-site.xml
-
-
-
-
+$ hive
 
 ================== 
 * hive ex1 : 
@@ -49,6 +76,8 @@ $ hadoop fs -mkdir -p ./input/h1
 $ hadoop fs -put *.txt ./input/h1
 
 $ hive -f exc1.hive
+
+$ hive -f exc2.hive
 
 
 ================== 
@@ -62,10 +91,10 @@ $ hadoop fs -rmr ./input/h2
 
 $ hadoop fs -put input ./input/h2
 
-$ hive 
-----------------
+$ hive -f exc1.hive
 
-----------------
+$ hive -f exc2.hive
+
 
 
 ================== 

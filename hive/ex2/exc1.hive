@@ -1,9 +1,3 @@
-# cd ~/hadoop_example/hive/ex2
-# ./get_taiwan_landprice.sh
-# hadoop fs -rmr ./input/h2
-# hadoop fs -put input ./input/h2
-# hive 
-
 
 drop table lvr_raw;  drop table lvr_meta;
 
