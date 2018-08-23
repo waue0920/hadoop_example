@@ -22,12 +22,31 @@ $ cd ~/hadoop_example/
 
 $ git pull
 
+
+==================
+* build up hive
+==================
+
+$ hadoop fs -mkdir -p /user/hive/warehouse
+$ hadoop fs -mkdir -p /user/hadooper
+$ hadoop fs -mkdir -p /tmp
+$ hadoop fs -chmod 1777   /tmp
+$ cd ~/hadoop_example/hive/
+$ cp hive-env.sh /opt/hive/conf/hive-env.sh
+$ cp hive-site.xml /opt/hive/conf/hive-site.xml
+
+
+
+
+
 ================== 
 * hive ex1 : 
 ================== 
 $ cd ~/hadoop_example/hive/ex1
 
-$ hadoop fs -put *.txt ./
+$ hadoop fs -mkdir -p ./input/h1
+
+$ hadoop fs -put *.txt ./input/h1
 
 $ hive -f exc1.hive
 
@@ -37,11 +56,11 @@ $ hive -f exc1.hive
 ================== 
 $ cd ~/hadoop_example/hive/ex2
 
-$ ./get_taiwan_landprice.sh
+$ ./get_taiwan_landprice_2018.sh
 
-$ hadoop fs -rmr ./hive_2_input
+$ hadoop fs -rmr ./input/h2
 
-$ hadoop fs -put input ./hive_2_input
+$ hadoop fs -put input ./input/h2
 
 $ hive 
 ----------------
