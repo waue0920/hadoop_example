@@ -1,19 +1,15 @@
-drop table A;
-drop table B;
-drop table final;
+# cd ~/hadoop_example/hive/ex1
+# hadoop fs -mkdir -p ./input/h1
+# hadoop fs -put *.txt ./
+# hive 
 
-create table A (nm String, dp String, id String)
-ROW FORMAT DELIMITED  FIELDS TERMINATED BY ',' ;
 
-create table B (id String, dt String, hr int)
-ROW FORMAT DELIMITED  FIELDS TERMINATED BY ',' ;
 
-create table final (dp String, id String , nm String, avg float)
-ROW FORMAT DELIMITED  FIELDS TERMINATED BY ',' ;
-
-load data inpath 'file1.txt' into table A;
-load data inpath 'file2.txt' into table B;
-
+drop table A; drop table B; drop table final;
+create table A (nm String, dp String, id String)  ROW FORMAT DELIMITED  FIELDS TERMINATED BY ',' ;
+create table B (id String, dt String, hr int) ROW FORMAT DELIMITED  FIELDS TERMINATED BY ',' ;
+create table final (dp String, id String , nm String, avg float) ROW FORMAT DELIMITED  FIELDS TERMINATED BY ',' ;
+load data inpath 'input/h1/file1.txt' into table A;
+load data inpath 'input/h1/file2.txt' into table B;
 insert overwrite table final select a.id, collect_set(a.dp),  collect_set(a.nm), avg(b.hr) from a,b where b.hr > 8 and b.id = a.id group by a.id;
-
 select * from  final;
