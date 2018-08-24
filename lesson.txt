@@ -54,8 +54,8 @@ $ hadoop jar ./share/hadoop/mapreduce/hadoop-mapreduce-examples*.jar pi 10 10
 $ cd /opt 
 $ wget http://ftp.twaren.net/Unix/Web/apache/hive/hive-1.2.2/apache-hive-1.2.2-bin.tar.gz
 $ tar -zxvf apache-hive-1.2.2-bin.tar.gz 
+$ mv hive hive2
 $ mv apache-hive-1.2.2-bin hive
-
 $ hadoop fs -mkdir -p /user/hive/warehouse
 $ hadoop fs -mkdir -p /user/hadooper
 $ hadoop fs -mkdir -p /tmp
